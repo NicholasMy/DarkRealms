@@ -20,23 +20,20 @@ public class CommandAllow implements CommandExecutor {
         this.darkRealms = darkRealms;
     }
 
+    /**
+     * Get a hashmap from string to string for the permissions in the config file
+     *
+     * @return permissions hashmap
+     */
     private HashMap<String, String> getPermissionsFromConfig() {
-
         FileConfiguration config = darkRealms.getConfig();
-
         Set<String> rawPermissions = config.getConfigurationSection("permissions").getKeys(false); // raw permissions hashmap from config file
-
-        System.out.println("RAW PERMISSIONS:");
-        System.out.println(rawPermissions); // FIXME remove after debugging
-
         HashMap<String, String> permissions = new HashMap<>(); // Final permissions hashmap to return
 
         for (String s : rawPermissions) {
             permissions.put(s, config.getString("permissions." + s));
         }
-
         return permissions;
-
     }
 
     /**
@@ -83,13 +80,9 @@ public class CommandAllow implements CommandExecutor {
             String k = e.getKey();
             String v = e.getValue();
             ChatColor color = getChatColorForPermissionLevel(v);
-            sender.sendMessage(ChatColor.YELLOW + k + ": " + color + v);
+            sender.sendMessage("- " + ChatColor.YELLOW + k + ": " + color + v);
         }
-
-//        sender.sendMessage(ChatColor.YELLOW + "Fly: " + ChatColor.RED + "NOBODY");
-//        sender.sendMessage(ChatColor.YELLOW + "Set spawn: " + ChatColor.GOLD + "OP");
-//        sender.sendMessage(ChatColor.YELLOW + "Go to spawn: " + ChatColor.GREEN + "ALL");
-        sender.sendMessage(ChatColor.RED + "To change permissions, use /allow <permission> <all|ops|nobody>");
+        sender.sendMessage(ChatColor.RED + "To change permissions, use /allow <permission> <all/ops/nobody>");
     }
 
     @Override
@@ -113,7 +106,7 @@ public class CommandAllow implements CommandExecutor {
         // At this point, the sender is allowed to change permissions
 
         if (args.length != 2) {
-            sender.sendMessage(ChatColor.GREEN + "Here are the current permissions:");
+            sender.sendMessage(ChatColor.AQUA + "Here are the current permissions:");
         } else {
             // args length is 2
             String permission = args[0].toLowerCase(); // Such as "fly"
@@ -127,10 +120,12 @@ public class CommandAllow implements CommandExecutor {
                 return true;
             }
 
-            // TODO actually change the permissions in the config file
-            // TODO check if what the user entered is valid for both entries
-            sender.sendMessage(ChatColor.GREEN + "You successfully set the " + permission + " to " + level + "!");
-            sender.sendMessage(ChatColor.GREEN + "Here are the updated permissions:");
+            // At this point, permission and level are valid
+
+            darkRealms.getConfig().set("permissions." + permission, level);
+
+            sender.sendMessage(ChatColor.AQUA + "You successfully updated " + ChatColor.YELLOW + permission + ChatColor.AQUA + " to " + getChatColorForPermissionLevel(level) +  level + ChatColor.AQUA + "!");
+            sender.sendMessage(ChatColor.AQUA + "Here are the updated permissions:");
         }
         sendCurrentPermissions(sender);
         return true;
