@@ -8,6 +8,7 @@ public final class DarkRealms extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         this.saveDefaultConfig();
+        this.getConfig().options().copyDefaults(true); // Update config file when the plugin is updated
         this.getCommand("allow").setExecutor(new CommandAllow(this));
 
     }

@@ -1,11 +1,11 @@
 package nicholasmy.darkrealms;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -22,18 +22,18 @@ public class CommandAllow implements CommandExecutor {
 
     private HashMap<String, String> getPermissionsFromConfig() {
 
-        Set<String> rawPermissions = darkRealms.getConfig().getConfigurationSection("permissions").getKeys(false); // raw permissions hashmap from config file
+        FileConfiguration config = darkRealms.getConfig();
+
+        Set<String> rawPermissions = config.getConfigurationSection("permissions").getKeys(false); // raw permissions hashmap from config file
 
         System.out.println("RAW PERMISSIONS:");
         System.out.println(rawPermissions); // FIXME remove after debugging
 
         HashMap<String, String> permissions = new HashMap<>(); // Final permissions hashmap to return
 
-//        for (Map.Entry<String, Object> e : rawPermissions.entrySet()) {
-//            String k = e.getKey();
-//            String v = darkRealms.getConfig().getString((String) e.getValue());
-//            permissions.put(k, v);
-//        }
+        for (String s : rawPermissions) {
+            permissions.put(s, config.getString("permissions." + s));
+        }
 
         return permissions;
 
@@ -117,7 +117,7 @@ public class CommandAllow implements CommandExecutor {
         } else {
             // args length is 2
             String permission = args[0].toLowerCase(); // Such as "fly"
-            if (!getPermissionsFromConfig().containsKey(permission)){
+            if (!getPermissionsFromConfig().containsKey(permission)) {
                 sender.sendMessage(ChatColor.RED + "Invalid permission name. An example of a valid permission name is set_spawn.");
                 return true;
             }
