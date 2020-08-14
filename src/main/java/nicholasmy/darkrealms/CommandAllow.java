@@ -7,17 +7,83 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CommandAllow implements CommandExecutor {
 
+    private DarkRealms darkRealms;
+
     public CommandAllow(DarkRealms darkRealms) {
+        this.darkRealms = darkRealms;
     }
 
+    private HashMap<String, String> getPermissionsFromConfig() {
+
+        HashMap<String, Object> rawPermissions = (HashMap<String, Object>) darkRealms.getConfig().getConfigurationSection("permissions").getKeys(false); // raw permissions hashmap from config file
+        HashMap<String, String> permissions = new HashMap<>(); // Final permissions hashmap to return
+
+        for (Map.Entry<String, Object> e : rawPermissions.entrySet()) {
+            String k = e.getKey();
+            String v = darkRealms.getConfig().getString((String) e.getValue());
+            permissions.put(k, v);
+        }
+
+        return permissions;
+
+    }
+
+    /**
+     * @param input a user input for the permission level. This might not be 100% accurate, so this method will interpret what they mean
+     * @return the correct permission level name
+     */
+    private String interpretPermissionLevel(String input) {
+        if (input.toLowerCase().startsWith("no")) {
+            return "NOBODY";
+        } else if (input.toLowerCase().startsWith("op")) {
+            return "OPS";
+        } else if (input.toLowerCase().startsWith("al") || input.toLowerCase().startsWith("every")) {
+            return "ALL";
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param permissionLevel "NOBODY" "OPS" "ALL"
+     * @return chat color to display the permission level in
+     */
+    private ChatColor getChatColorForPermissionLevel(String permissionLevel) {
+        switch (permissionLevel) {
+            case "NOBODY":
+                return ChatColor.RED;
+            case "OPS":
+                return ChatColor.GOLD;
+            case "ALL":
+                return ChatColor.GREEN;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Sends the current permissions table to the specified sender
+     *
+     * @param sender the CommandSender to send the permissions table to
+     */
     private void sendCurrentPermissions(CommandSender sender) {
-        // TODO list current permissions level, for now it's just made up values
-        sender.sendMessage(ChatColor.YELLOW + "Fly: " + ChatColor.RED + "NOBODY");
-        sender.sendMessage(ChatColor.YELLOW + "Set spawn: " + ChatColor.GOLD + "OP");
-        sender.sendMessage(ChatColor.YELLOW + "Go to spawn: " + ChatColor.GREEN + "ALL");
-        sender.sendMessage(ChatColor.RED + "To change permissions, use /allow <permission> <all|op|nobody>");
+
+        for (Map.Entry<String, String> e : getPermissionsFromConfig().entrySet()) {
+            String k = e.getKey();
+            String v = e.getValue();
+            ChatColor color = getChatColorForPermissionLevel(v);
+            sender.sendMessage(ChatColor.YELLOW + k + ": " + color + v);
+        }
+
+//        sender.sendMessage(ChatColor.YELLOW + "Fly: " + ChatColor.RED + "NOBODY");
+//        sender.sendMessage(ChatColor.YELLOW + "Set spawn: " + ChatColor.GOLD + "OP");
+//        sender.sendMessage(ChatColor.YELLOW + "Go to spawn: " + ChatColor.GREEN + "ALL");
+        sender.sendMessage(ChatColor.RED + "To change permissions, use /allow <permission> <all|ops|nobody>");
     }
 
     @Override
@@ -44,8 +110,17 @@ public class CommandAllow implements CommandExecutor {
             sender.sendMessage(ChatColor.GREEN + "Here are the current permissions:");
         } else {
             // args length is 2
-            String permission = args[0]; // Such as "fly"
-            String level = args[1]; // such as "ops"
+            String permission = args[0].toLowerCase(); // Such as "fly"
+            if (!getPermissionsFromConfig().containsKey(permission)){
+                sender.sendMessage(ChatColor.RED + "Invalid permission name. An example of a valid permission name is set_spawn.");
+                return true;
+            }
+            String level = interpretPermissionLevel(args[1]); // such as "OPS"
+            if (level == null) {
+                sender.sendMessage(ChatColor.RED + "Invalid permission level. Use all, ops, or nobody.");
+                return true;
+            }
+
             // TODO actually change the permissions in the config file
             // TODO check if what the user entered is valid for both entries
             sender.sendMessage(ChatColor.GREEN + "You successfully set the " + permission + " to " + level + "!");

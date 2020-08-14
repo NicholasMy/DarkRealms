@@ -5,4 +5,4 @@ api-version: 1.16
 commands:
   allow:
     description: Change permissions for DarkRealms features.
-    usage: /allow <permission> <none|ops|all>
+    usage: /allow <permission> <nobody|ops|all>
