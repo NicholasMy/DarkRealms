@@ -8,9 +8,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CommandAllow implements CommandExecutor {
 
@@ -28,9 +26,11 @@ public class CommandAllow implements CommandExecutor {
     private HashMap<String, String> getPermissionsFromConfig() {
         FileConfiguration config = darkRealms.getConfig();
         Set<String> rawPermissions = config.getConfigurationSection("permissions").getKeys(false); // raw permissions hashmap from config file
+        List<String> rawPermissionsAlphabetized = new ArrayList<>(rawPermissions);
+        rawPermissionsAlphabetized.sort(Comparator.comparing(String::toString));
         HashMap<String, String> permissions = new HashMap<>(); // Final permissions hashmap to return
 
-        for (String s : rawPermissions) {
+        for (String s : rawPermissionsAlphabetized) {
             permissions.put(s, config.getString("permissions." + s));
         }
         return permissions;
