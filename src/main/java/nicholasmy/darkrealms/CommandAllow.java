@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.*;
 
@@ -19,16 +20,16 @@ public class CommandAllow implements CommandExecutor {
     }
 
     /**
-     * Get a hashmap from string to string for the permissions in the config file
+     * Get a treemap from string to string for the permissions in the config file
      *
-     * @return permissions hashmap
+     * @return permissions treemap
      */
-    private HashMap<String, String> getPermissionsFromConfig() {
+    private TreeMap<String, String> getPermissionsFromConfig() {
         FileConfiguration config = darkRealms.getConfig();
-        Set<String> rawPermissions = config.getConfigurationSection("permissions").getKeys(false); // raw permissions hashmap from config file
+        Set<String> rawPermissions = config.getConfigurationSection("permissions").getKeys(false); // raw permissions set from config file
         List<String> rawPermissionsAlphabetized = new ArrayList<>(rawPermissions);
         rawPermissionsAlphabetized.sort(Comparator.comparing(String::toString));
-        HashMap<String, String> permissions = new HashMap<>(); // Final permissions hashmap to return
+        TreeMap<String, String> permissions = new TreeMap<>(); // Final permissions treemap to return
 
         for (String s : rawPermissionsAlphabetized) {
             permissions.put(s, config.getString("permissions." + s));
@@ -123,6 +124,7 @@ public class CommandAllow implements CommandExecutor {
             // At this point, permission and level are valid
 
             darkRealms.getConfig().set("permissions." + permission, level);
+            darkRealms.saveConfig(); // Save changes to disk immediately
 
             sender.sendMessage(ChatColor.AQUA + "You successfully updated " + ChatColor.YELLOW + permission + ChatColor.AQUA + " to " + getChatColorForPermissionLevel(level) +  level + ChatColor.AQUA + "!");
             sender.sendMessage(ChatColor.AQUA + "Here are the updated permissions:");
