@@ -1,5 +1,6 @@
 package nicholasmy.darkrealms;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -41,13 +42,18 @@ public class CommandFly implements CommandExecutor {
                 p = (Player) sender;
             }
             if (PermissionUtils.playerHasPermission(p, "fly_others")) {
-                // TODO get target
-                //p.setAllowFlight(!p.getAllowFlight());
-                //String state = p.getAllowFlight() ? "enabled" : "disabled";
-                //ChatColor color = p.getAllowFlight() ? ChatColor.GREEN : ChatColor.RED;
-                //sender.sendMessage(ChatColor.AQUA + "Flight mode " + color + state + ChatColor.AQUA + " for " + ChatColor.YELLOW + "TARGET_NAME_HERE" + ChatColor.AQUA + ".");
+                Player t = Bukkit.getServer().getPlayer(args[0]);
+                if (t == null) {
+                    sender.sendMessage(ChatColor.RED + "The target (" + args[0] + ") is not online!");
+                    return true;
+                }
+                t.setAllowFlight(!t.getAllowFlight());
+                String state = t.getAllowFlight() ? "enabled" : "disabled";
+                ChatColor color = t.getAllowFlight() ? ChatColor.GREEN : ChatColor.RED;
+                sender.sendMessage(ChatColor.AQUA + "Flight mode " + color + state + ChatColor.AQUA + " for " + ChatColor.YELLOW + t.getName() + ChatColor.AQUA + ".");
+                t.sendMessage(ChatColor.AQUA + "Flight mode " + color + state + ChatColor.AQUA + "."); // Alert the target
             } else {
-                // Player doesn't have permission to fly
+                // Player doesn't have permission to toggle others' flight
                 sender.sendMessage(ChatColor.RED + "You don't have permission to toggle flight for other players. Contact the owner of this Dark Realm if you believe this is an error.");
             }
         } else {
