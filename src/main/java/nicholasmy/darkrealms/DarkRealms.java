@@ -20,6 +20,6 @@ public final class DarkRealms extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-            this.saveConfig();
+        this.saveConfig();
     }
 }

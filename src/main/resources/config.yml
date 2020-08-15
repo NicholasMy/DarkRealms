@@ -1,6 +1,6 @@
 permissions:
   fly: "OPS"
-  color_chat: "ALL"
-  set_spawn: "NOBODY"
-  go_to_spawn: "NOBODY"
-  something_else: "ALL"
+  fly_others: "OPS"
+  color_chat: "NOBODY"
+  set_spawn: "OPS"
+  spawn: "ALL"

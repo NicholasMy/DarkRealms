@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.*;
 
@@ -83,7 +82,7 @@ public class CommandAllow implements CommandExecutor {
             ChatColor color = getChatColorForPermissionLevel(v);
             sender.sendMessage("- " + ChatColor.YELLOW + k + ": " + color + v);
         }
-        sender.sendMessage(ChatColor.RED + "To change permissions, use /allow <permission> <all/ops/nobody>");
+        sender.sendMessage(ChatColor.AQUA + "To change permissions, use /allow <permission> <all/ops/nobody>");
     }
 
     @Override
@@ -126,7 +125,7 @@ public class CommandAllow implements CommandExecutor {
             darkRealms.getConfig().set("permissions." + permission, level);
             darkRealms.saveConfig(); // Save changes to disk immediately
 
-            sender.sendMessage(ChatColor.AQUA + "You successfully updated " + ChatColor.YELLOW + permission + ChatColor.AQUA + " to " + getChatColorForPermissionLevel(level) +  level + ChatColor.AQUA + "!");
+            sender.sendMessage(ChatColor.AQUA + "You successfully updated " + ChatColor.YELLOW + permission + ChatColor.AQUA + " to " + getChatColorForPermissionLevel(level) + level + ChatColor.AQUA + "!");
             sender.sendMessage(ChatColor.AQUA + "Here are the updated permissions:");
         }
         sendCurrentPermissions(sender);
