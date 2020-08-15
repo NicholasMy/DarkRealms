@@ -1,7 +1,6 @@
 package nicholasmy.darkrealms;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -43,6 +42,7 @@ public class Utils {
 
     /**
      * Gets a player instance from a sender instance. If the sender is not a player, returns null
+     *
      * @param sender The command sender that needs to be converted to a player
      * @return Player instance or null
      */
@@ -50,16 +50,17 @@ public class Utils {
         if (!(sender instanceof Player)) {
             return null; // This was sent from the console or a command block, so there is no player sending the command.
         } else {
-            return  (Player) sender;
+            return (Player) sender;
         }
     }
 
     /**
      * Get an online player by their username
+     *
      * @param username String of their username
      * @return Player instance (or null if not found)
      */
-    public static Player getPlayerByUsername(String username){
+    public static Player getPlayerByUsername(String username) {
         return Bukkit.getServer().getPlayer(username);
     }
 

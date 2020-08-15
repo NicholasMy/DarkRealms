@@ -1,6 +1,9 @@
 package nicholasmy.darkrealms;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,9 +18,22 @@ public class CommandSpawn implements CommandExecutor {
     }
 
     private boolean sendPlayerToSpawn(Player p) {
-        // TODO send p to spawn
-        System.out.println("Pretend that " + p + " was sent to spawn!");
-        return true; // false if failed
+        // Get spawn info from config
+        double x = darkRealms.getConfig().getDouble("spawn.x");
+        double y = darkRealms.getConfig().getDouble("spawn.y");
+        double z = darkRealms.getConfig().getDouble("spawn.z");
+        float pitch = (float) darkRealms.getConfig().getDouble("spawn.pitch");
+        float yaw = (float) darkRealms.getConfig().getDouble("spawn.yaw");
+        String worldName = darkRealms.getConfig().getString("spawn.world");
+        try {
+            assert worldName != null;
+            World world = Bukkit.getWorld(worldName);
+            Location spawnLocation = new Location(world, x, y, z, yaw, pitch);
+            p.teleport(spawnLocation);
+            return true;
+        } catch (Exception ignored) {
+            return false; // Failed to get spawn location
+        }
     }
 
     @Override
