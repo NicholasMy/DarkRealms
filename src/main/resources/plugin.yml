@@ -9,3 +9,6 @@ commands:
   fly:
     description: Toggle flight for yourself or another player.
     usage: /fly [player]
+  spawn:
+    description: Teleport yourself or another player to the world's spawn point.
+    usage: /spawn [player]

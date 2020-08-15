@@ -1,13 +1,16 @@
 package nicholasmy.darkrealms;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class PermissionUtils {
+public class Utils {
 
     private static DarkRealms darkRealms = null;
 
-    public PermissionUtils(DarkRealms darkRealms) {
-        PermissionUtils.darkRealms = darkRealms;
+    public Utils(DarkRealms darkRealms) {
+        Utils.darkRealms = darkRealms;
     }
 
     /**
@@ -37,4 +40,27 @@ public class PermissionUtils {
             // There isn't a valid level assigned to this permission, so nobody is allowed to do it.
         }
     }
+
+    /**
+     * Gets a player instance from a sender instance. If the sender is not a player, returns null
+     * @param sender The command sender that needs to be converted to a player
+     * @return Player instance or null
+     */
+    public static Player getPlayerSenderOrNull(CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            return null; // This was sent from the console or a command block, so there is no player sending the command.
+        } else {
+            return  (Player) sender;
+        }
+    }
+
+    /**
+     * Get an online player by their username
+     * @param username String of their username
+     * @return Player instance (or null if not found)
+     */
+    public static Player getPlayerByUsername(String username){
+        return Bukkit.getServer().getPlayer(username);
+    }
+
 }
