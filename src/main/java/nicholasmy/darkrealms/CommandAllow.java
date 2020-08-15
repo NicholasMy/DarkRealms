@@ -100,7 +100,7 @@ public class CommandAllow implements CommandExecutor {
             }
         }
         if (!allowedToRunCommand) {
-            sender.sendMessage(ChatColor.RED + "You do not have permission to change permissions. Please talk to the owner of this Dark Realm if you believe this is an error.");
+            sender.sendMessage(ChatColor.RED + "You do not have permission to change permissions. Contact the owner of this Dark Realm if you believe this is an error.");
             return true;
         }
 

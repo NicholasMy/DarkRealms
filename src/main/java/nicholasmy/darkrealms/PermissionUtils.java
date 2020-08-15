@@ -19,6 +19,7 @@ public class PermissionUtils {
      */
     public static boolean playerHasPermission(Player p, String permission) {
         String  requiredLevel = darkRealms.getConfig().getString("permissions." + permission); // Such as "ALL" or "OPS" or "NOBODY"
+        if (p == null) return true; // If there is no player, it was sent from the console or a command block, so it's allowed.
         assert requiredLevel != null;
         switch (requiredLevel) {
             case "ALL":
