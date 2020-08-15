@@ -12,6 +12,8 @@ public final class DarkRealms extends JavaPlugin {
         this.saveConfig(); // Update the existing config file to have all the new fields from the latest version of the plugin
         this.getCommand("allow").setExecutor(new CommandAllow(this));
 
+        PermissionUtils pu = new PermissionUtils(this); // Initialize PermissionUtils to reference this plugin
+
     }
 
     @Override
