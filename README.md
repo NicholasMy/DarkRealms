@@ -26,3 +26,17 @@ The permission argument is very specific, so you must type it exactly, but you h
 For example, you could type `no`, `nobody`, or `none` if you don't want anyone to have access to a permission.
 Additionally, for ops, you could type `op`, `ops`, or `operators`. And for everyone, you could type `everyone`, `all`, or `everybody`.
 It's generally pretty forgiving, but in case it doesn't understand what you meant, it will give you feedback as to where your error was.
+
+### /fly [player]
+If a player runs `/fly`, they will toggle their own flight mode. This requires the `fly` permission.
+
+To toggle another player's flight, run `/fly [player]`. This requires the `fly_others` permission.
+
+The console and command blocks can also toggle another player's flight.
+
+### /spawn [player]
+If a player runs `/spawn`, they will instantly be teleported to the vanilla spawn point. This requires the `spawn` permission.
+
+To send another player to spawn, run `/spawn [player]`. This requires the `spawn_others` permission.
+
+The console and command blocks can also send players to spawn.
