@@ -1,9 +1,6 @@
-# 0 means nobody
-# 1 means ops only
-# 2 means everyone
-
-abilities:
-  fly: 0
-  color_chat: 0
-  set_spawn: 1
-  go_to_spawn: 2
+permissions:
+  fly: "OPS"
+  fly_others: "OPS"
+  color_chat: "NOBODY"
+  set_spawn: "OPS"
+  spawn: "ALL"
