@@ -45,6 +45,8 @@ public class CommandSetSpawn implements CommandExecutor {
             } catch (Exception ignored) {
                 p.sendMessage(ChatColor.RED + "There was an error setting the spawn point. Please contact the owner of this Dark Realm for help.");
             }
+        } else {
+            p.sendMessage(ChatColor.RED + "You don't have permission to set the spawn point. Contact the owner of this Dark Realm if you believe this is an error.");
         }
         return true;
     }
