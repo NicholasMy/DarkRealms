@@ -1,6 +1,5 @@
 package nicholasmy.darkrealms;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +24,7 @@ public class CommandFly implements CommandExecutor {
             }
 
             Player p = (Player) sender;
-            if (PermissionUtils.playerHasPermission(p, "fly")) {
+            if (Utils.playerHasPermission(p, "fly")) {
                 p.setAllowFlight(!p.getAllowFlight());
                 String state = p.getAllowFlight() ? "enabled" : "disabled";
                 ChatColor color = p.getAllowFlight() ? ChatColor.GREEN : ChatColor.RED;
@@ -35,14 +34,9 @@ public class CommandFly implements CommandExecutor {
                 p.sendMessage(ChatColor.RED + "You don't have permission to toggle your flight. Contact the owner of this Dark Realm if you believe this is an error.");
             }
         } else if (args.length == 1) {
-            Player p;
-            if (!(sender instanceof Player)) {
-                p = null; // This was sent from the console or a command block, so there is no player sending the command.
-            } else {
-                p = (Player) sender;
-            }
-            if (PermissionUtils.playerHasPermission(p, "fly_others")) {
-                Player t = Bukkit.getServer().getPlayer(args[0]);
+            Player p = Utils.getPlayerSenderOrNull(sender);
+            if (Utils.playerHasPermission(p, "fly_others")) {
+                Player t = Utils.getPlayerByUsername(args[0]);
                 if (t == null) {
                     sender.sendMessage(ChatColor.RED + "The target (" + args[0] + ") is not online!");
                     return true;
@@ -59,8 +53,6 @@ public class CommandFly implements CommandExecutor {
         } else {
             sender.sendMessage(ChatColor.RED + "Invalid usage. Try /fly to toggle your own flight or /fly [player] to toggle another player's flight.");
         }
-
-
         return true;
     }
 }
