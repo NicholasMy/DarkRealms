@@ -24,7 +24,7 @@ public class CommandSetSpawn implements CommandExecutor {
         }
 
         Player p = (Player) sender;
-        if (Utils.playerHasPermission(p, "set_spawn")) {
+        if (Utils.playerHasPermission(p, "spawn_set")) {
             try {
                 Location location = p.getLocation();
                 double x = location.getX();
@@ -41,7 +41,7 @@ public class CommandSetSpawn implements CommandExecutor {
                 config.set("spawn.pitch", pitch);
                 config.set("spawn.world", worldName);
                 darkRealms.saveConfig();
-                p.sendMessage(ChatColor.YELLOW + "Successfully set this Dark Realm's spawn location to X: " + x + ", Y: " + y + ", Z: " + z + ", Yaw: " + yaw + ", Pitch: " + pitch + "World: '" + worldName + ". This is where the /spawn command will teleport players.");
+                p.sendMessage(ChatColor.YELLOW + "Successfully set this Dark Realm's spawn location to:\nX: " + x + "\nY: " + y + "\nZ: " + z + "\nYaw: " + yaw + "\nPitch: " + pitch + "\nWorld: '" + worldName + "'\nThis is where the /spawn command will teleport players.");
             } catch (Exception ignored) {
                 p.sendMessage(ChatColor.RED + "There was an error setting the spawn point. Please contact the owner of this Dark Realm for help.");
             }

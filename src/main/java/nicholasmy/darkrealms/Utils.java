@@ -1,6 +1,8 @@
 package nicholasmy.darkrealms;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -62,6 +64,19 @@ public class Utils {
      */
     public static Player getPlayerByUsername(String username) {
         return Bukkit.getServer().getPlayer(username);
+    }
+
+    public static Location getSpawnLocation() {
+        // Get spawn info from config
+        double x = darkRealms.getConfig().getDouble("spawn.x");
+        double y = darkRealms.getConfig().getDouble("spawn.y");
+        double z = darkRealms.getConfig().getDouble("spawn.z");
+        float pitch = (float) darkRealms.getConfig().getDouble("spawn.pitch");
+        float yaw = (float) darkRealms.getConfig().getDouble("spawn.yaw");
+        String worldName = darkRealms.getConfig().getString("spawn.world");
+        assert worldName != null;
+        World world = Bukkit.getWorld(worldName);
+        return new Location(world, x, y, z, yaw, pitch);
     }
 
 }

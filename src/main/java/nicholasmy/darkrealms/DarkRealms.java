@@ -14,6 +14,8 @@ public final class DarkRealms extends JavaPlugin {
         this.getCommand("fly").setExecutor(new CommandFly(this));
         this.getCommand("spawn").setExecutor(new CommandSpawn(this));
         this.getCommand("setspawn").setExecutor(new CommandSetSpawn(this));
+        getServer().getPluginManager().registerEvents(new RespawnListener(this), this);
+
 
         Utils utils = new Utils(this); // Initialize Utils to reference this plugin
 
