@@ -40,3 +40,10 @@ If a player runs `/spawn`, they will instantly be teleported to the vanilla spaw
 To send another player to spawn, run `/spawn [player]`. This requires the `spawn_others` permission.
 
 The console and command blocks can also send players to spawn.
+
+### /setspawn
+This command allows a player, ideally a server operator, to set the spawn location for the Dark Realm. It will save the executor's current location including world, pitch, and yaw to the configuration file. When new players join, or when current players run `/spawn`, they will be teleported to this location.
+
+Upon respawning from a death, in Vanilla Minecraft, the player will spawn at their bed or spawn anchor. Either or both of these can be disabled by taking away the permissions `spawn_at_bed` and/or `spawn_at_anchor` respectively. If both of those are disabled, the player is guaranteed to respawn at the manually set spawn location instead of their bed or spawn anchor.
+
+When a player joins for the first time, they will be teleported to this spawn location.
