@@ -30,7 +30,7 @@ public class CommandSetSpawn implements CommandExecutor {
                 double x = location.getX();
                 double y = location.getY();
                 double z = location.getZ();
-                double yaw = location.getY();
+                double yaw = location.getYaw();
                 double pitch = location.getPitch();
                 String worldName = location.getWorld().getName();
                 FileConfiguration config = darkRealms.getConfig();
