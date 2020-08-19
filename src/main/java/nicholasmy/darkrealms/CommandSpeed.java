@@ -6,8 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.accessibility.AccessibleKeyBinding;
-
 public class CommandSpeed implements CommandExecutor {
 
     private DarkRealms darkRealms;
@@ -57,8 +55,8 @@ public class CommandSpeed implements CommandExecutor {
 
             if (hasPermissionSelf) {
                 Double amount = Utils.tryToGetDoubleFromInput(args[0]);
-                if (amount == null || amount > 10 || amount < -10) {
-                    p.sendMessage(ChatColor.RED + "Invalid speed (" + args[0] + "). Amount must be a number from -10 to 10. Negative speeds are reversed.");
+                if (amount == null || amount > 10 || amount < 0) {
+                    p.sendMessage(ChatColor.RED + "Invalid speed (" + args[0] + "). Amount must be a number from 0 to 10. Regular speed is 1.");
                     return true;
                 }
 
@@ -77,8 +75,8 @@ public class CommandSpeed implements CommandExecutor {
             if (hasPermissionOthers) {
 
                 Double amount = Utils.tryToGetDoubleFromInput(args[0]);
-                if (amount == null || amount > 10 || amount < -10) {
-                    sender.sendMessage(ChatColor.RED + "Invalid speed (" + args[0] + "). Amount must be a number from -10 to 10. Negative speeds are reversed.");
+                if (amount == null || amount > 10 || amount < 0) {
+                    sender.sendMessage(ChatColor.RED + "Invalid speed (" + args[0] + "). Amount must be a number from 0 to 10. Regular speed is 1.");
                     return true;
                 }
 

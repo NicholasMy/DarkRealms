@@ -6,7 +6,7 @@
 
     <groupId>nicholasmy</groupId>
     <artifactId>DarkRealms</artifactId>
-    <version>0.2.7</version>
+    <version>0.2.9</version>
     <packaging>jar</packaging>
 
     <name>DarkRealms</name>
