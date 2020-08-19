@@ -79,4 +79,12 @@ public class Utils {
         return new Location(world, x, y, z, yaw, pitch);
     }
 
+    public static Double tryToGetDoubleFromInput(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

@@ -19,3 +19,6 @@ commands:
   setspawn:
     description: Set the spawn point for the server.
     usage: /setspawn
+  speed:
+    description: Change a player's movement speed.
+    usage: /speed <amount> [player]

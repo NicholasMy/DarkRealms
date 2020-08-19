@@ -7,6 +7,8 @@ permissions:
   spawn_others: "OPS"
   spawn_at_bed: "ALL"
   spawn_at_anchor: "ALL"
+  speed: "OPS"
+  speed_others: "OPS"
 spawn:
   x: 0.0
   y: 100.0
