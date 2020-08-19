@@ -14,7 +14,7 @@ public class CommandSpeed implements CommandExecutor {
         this.darkRealms = darkRealms;
     }
 
-    private void setPlayerSpeed(Player p, double amount) {
+    public static void setPlayerSpeed(Player p, double amount) {
         if (amount != 0) {
             amount /= 10.0; // Handle the scale from -10 to 10 instead of the API's -1 to 1
         }
@@ -37,7 +37,7 @@ public class CommandSpeed implements CommandExecutor {
         // At this point, they're allowed to either set their own speed or another player's speed
 
         if (args.length == 0 || args.length >= 3) {
-            sender.sendMessage(ChatColor.RED + "Incorrect usage. Try /speed <amount> [player]. Amount can be from -10 to 10. For regular speed, choose 1. Negative speeds are reversed.");
+            sender.sendMessage(ChatColor.RED + "Incorrect usage. Try /speed <amount> [player]. Amount can be from 0 to 10. For regular speed, choose 1.");
             return true;
         }
 
