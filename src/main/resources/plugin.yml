@@ -3,6 +3,10 @@ version: ${project.version}
 main: nicholasmy.darkrealms.DarkRealms
 api-version: 1.16
 commands:
+  darkrealms:
+    description: Show information about the DarkRealms plugin.
+    usage: /darkrealms or /dr
+    aliases: [dr]
   allow:
     description: Change permissions for DarkRealms features.
     usage: /allow [<permission> <nobody|ops|all>]
@@ -15,3 +19,6 @@ commands:
   setspawn:
     description: Set the spawn point for the server.
     usage: /setspawn
+  speed:
+    description: Change a player's movement speed.
+    usage: /speed <amount> [player]

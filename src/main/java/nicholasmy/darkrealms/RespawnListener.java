@@ -32,8 +32,12 @@ public class RespawnListener implements Listener {
     }
 
     @EventHandler
-    public void onFirstSpawn(PlayerJoinEvent e) {
+    public void onJoinServer(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+
+        // Reset speed when joining the server
+        CommandSpeed.setPlayerSpeed(p, 1.0);
+
         if (!p.hasPlayedBefore()) {
             // If this player hasn't played before, send them to the Dark Realm spawn point
             p.teleport(Utils.getSpawnLocation());
