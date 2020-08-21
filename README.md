@@ -47,3 +47,12 @@ This command allows a player, ideally a server operator, to set the spawn locati
 Upon respawning from a death, in Vanilla Minecraft, the player will spawn at their bed or spawn anchor. Either or both of these can be disabled by taking away the permissions `spawn_at_bed` and/or `spawn_at_anchor` respectively. If both of those are disabled, the player is guaranteed to respawn at the manually set spawn location instead of their bed or spawn anchor.
 
 When a player joins for the first time, they will be teleported to this spawn location.
+
+### /speed <amount> [player]
+This command allows a player to change their movement speed.
+
+To change your own movement speed, use `/speed <amount>` where amount is a number from 0 to 10. This requires the `speed` permission.
+
+0 means you will not move at all. 1 is the regular speed, 3 is a decent speed boost, and 10 is very fast.
+
+To change another player's speed, use `/speed <amount> [player]` where `[player]` is the username of an online user. This requires the `speed_others` permission.
