@@ -48,8 +48,8 @@ Upon respawning from a death, in Vanilla Minecraft, the player will spawn at the
 
 When a player joins for the first time, they will be teleported to this spawn location.
 
-### /speed <amount> [player]
-This command allows a player to change their movement speed.
+### /speed \<amount> [player]
+This command allows a player to change their movement speed. This will apply to both walking and flying speed.
 
 To change your own movement speed, use `/speed <amount>` where amount is a number from 0 to 10. This requires the `speed` permission.
 
