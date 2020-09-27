@@ -31,7 +31,6 @@ public final class DarkRealms extends JavaPlugin {
         - colored chat
         - namecolor
         - prefixes (maybe)
-        - speed change
         - weather and time
          */
 

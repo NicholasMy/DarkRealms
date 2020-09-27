@@ -19,6 +19,14 @@ public class CommandSpeed implements CommandExecutor {
             amount /= 10.0; // Handle the scale from -10 to 10 instead of the API's -1 to 1
         }
         p.setFlySpeed((float) amount);
+
+        // The default flight speed is 0.1, but the default walk speed is 0.2, so a conversion is necessary
+        // Piecewise calculation
+        if (amount <= 0.2) {
+            amount *= 2;
+        } else {
+            amount = amount * 0.75 + 0.25;
+        }
         p.setWalkSpeed((float) amount);
     }
 
